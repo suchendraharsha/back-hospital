@@ -1,7 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/database');
 const cors = require('cors');
-require('dotenv').config();
+
 
 const app = express();
 
@@ -20,4 +20,4 @@ app.use('/api/predictions', require('./routes/predictions'));
 
 const PORT = process.env.PORT || 8081;
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(8081, () => console.log('Server started on port 8081'));

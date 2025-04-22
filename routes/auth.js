@@ -5,8 +5,7 @@ const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
 const auth = require('../middleware/auth.js'); // Import the auth middleware
-require('dotenv').config();
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Use environment variables for security
+const stripe = require('stripe')('sk_test_51RAia6Q23ToESyf586UeaNTjgsVCG9jNswh5BSl7ORYGZQae1YiPldQU2cez5HyQMJe8UqaCIsHDqFLgMIyjXG3u00f6W0IgDj'); // Use environment variables for security
 
 // @route   POST /api/auth/register
 // @desc    Register user
@@ -53,7 +52,7 @@ router.post(
 
       jwt.sign(
         payload,
-        process.env.JWT_SECRET,
+        'your_secret_jwt_key',
         { expiresIn: '1h' }, // Token expires in 1 hour
         (err, token) => {
           if (err) throw err;
@@ -105,7 +104,7 @@ router.post(
 
       jwt.sign(
         payload,
-        process.env.JWT_SECRET,
+        'your_secret_jwt_key',
         { expiresIn: '30d' },
         (err, token) => {
           if (err) throw err;
