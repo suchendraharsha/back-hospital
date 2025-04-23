@@ -121,9 +121,30 @@ router.post(
 // @route   GET /api/auth/user
 // @desc    Get user data by token
 // @access  Private
+/* router.get('/user', async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password'); 
+    res.json({ user });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+}); */
+
 router.get('/user', async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password'); // Exclude password
+    const userIdFromFrontend = req.query.userId; // Extract userId from query parameters
+
+    if (!userIdFromFrontend) {
+      return res.status(400).json({ msg: 'User ID not provided' });
+    }
+
+    const user = await User.findById(userIdFromFrontend).select('-password');
+
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
     res.json({ user });
   } catch (err) {
     console.error(err.message);
