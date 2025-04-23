@@ -121,7 +121,7 @@ router.post(
 // @route   GET /api/auth/user
 // @desc    Get user data by token
 // @access  Private
-router.get('/user', auth, async (req, res) => {
+router.get('/user', async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password'); // Exclude password
     res.json({ user });
@@ -200,7 +200,7 @@ router.get('/user', auth, async (req, res) => {
   }
 }); */
 
-router.post('/subscribe', auth, async (req, res) => {
+router.post('/subscribe', async (req, res) => {
   try {
       const user = await User.findById(req.user.id);
       if (!user) {
